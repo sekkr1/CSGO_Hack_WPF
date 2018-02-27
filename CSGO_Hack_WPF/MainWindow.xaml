@@ -1,0 +1,334 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CSGO_Hack_WPF"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:properties="clr-namespace:CSGO_Hack_WPF.Properties"
+    x:Class="CSGO_Hack_WPF.MainWindow"
+        mc:Ignorable="d"
+        Title="Ogre multihack" Width="740" Height="400" GlowBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="0" ResizeMode="CanResizeWithGrip" >
+    <Window.Resources>
+        <local:RangeSliderMultiValueConvertor x:Key="RangeSliderMultiValueConvertor" />
+    </Window.Resources>
+    <Viewbox>
+        <TabControl  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Width="680" Height="333" >
+            <TabItem Header="ESP">
+                <UniformGrid Rows="5" Columns="4">
+                    <Canvas Height="60">
+                        <Controls:ToggleSwitch Width="120" Header="Glow" IsChecked="{local:SettingBinding glow}" HorizontalAlignment="Left" />
+                        <CheckBox FlowDirection="RightToLeft" Canvas.Left="92" Canvas.Top="2" IsEnabled="{local:SettingBinding glow}" IsChecked="{local:SettingBinding glow_friendly}">
+                            <TextBlock FlowDirection="LeftToRight" Text="Friendly:" FontSize="13" />
+                        </CheckBox>
+                    </Canvas>
+                    <Canvas Height="60">
+                        <Controls:ToggleSwitch Width="120" Header="2D Box" IsChecked="{local:SettingBinding d2box}" HorizontalAlignment="Left" />
+                        <CheckBox FlowDirection="RightToLeft" Canvas.Left="92" Canvas.Top="2" IsEnabled="{local:SettingBinding d2box}" IsChecked="{local:SettingBinding d2box_friendly}">
+                            <TextBlock FlowDirection="LeftToRight" Text="Friendly:" FontSize="13" />
+                        </CheckBox>
+                    </Canvas>
+                    <Canvas Height="60">
+                        <Controls:ToggleSwitch Width="120" Header="3D Box" IsChecked="{local:SettingBinding d3box}" HorizontalAlignment="Left" />
+                        <CheckBox FlowDirection="RightToLeft" Canvas.Left="92" Canvas.Top="2" IsEnabled="{local:SettingBinding d3box}" IsChecked="{local:SettingBinding d3box_friendly}">
+                            <TextBlock FlowDirection="LeftToRight" Text="Friendly:" FontSize="13" />
+                        </CheckBox>
+                    </Canvas>
+                    <Controls:ToggleSwitch Width="120" Header="Radar" IsChecked="{local:SettingBinding radar }" HorizontalAlignment="Left" />
+                    <Controls:ToggleSwitch Width="120" Header="Head Helper" IsChecked="{local:SettingBinding headHelper}" HorizontalAlignment="Left" />
+                    <Controls:ToggleSwitch Width="120" Header="Tracks" IsChecked="{local:SettingBinding tracks}" HorizontalAlignment="Left" />
+                    <Controls:ToggleSwitch Width="120" Header="Names" IsChecked="{local:SettingBinding names}" HorizontalAlignment="Left" />
+                    <Controls:ToggleSwitch Width="120" Header="Ranks" IsChecked="{local:SettingBinding ranks}" HorizontalAlignment="Left" />
+                    <Controls:ToggleSwitch Width="120" Header="Distance" IsChecked="{local:SettingBinding distance}" HorizontalAlignment="Left" />
+                    <Label x:Name="pos" Content="Label"/>
+                </UniformGrid>
+            </TabItem>
+
+            <TabItem Header="Aimbot">
+                <TabControl TabStripPlacement="Left">
+                    <TabItem Header="Pistol">
+                        <UniformGrid Rows="5" Columns="4">
+                            <Canvas>
+                                <Controls:ToggleSwitch Width="120" Header="Trigger" IsChecked="{local:SettingBinding pistol,trigger,enabled}" HorizontalAlignment="Left" />
+                                <ComboBox Canvas.Left="60" Canvas.Top="5" Width="75" SelectedIndex="{local:SettingBinding pistol,trigger,type}" FontSize="11" MinHeight="18" IsEnabled="{local:SettingBinding pistol,trigger,enabled}">
+                                    <ComboBoxItem Content="In cross"/>
+                                    <ComboBoxItem Content="Hitbox"/>
+                                    <ComboBoxItem Content="Bone"/>
+                                </ComboBox>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding pistol,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding pistol,trigger,delayFirstShot}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding pistol,trigger,delayFirstShot}" ContentStringFormat="First shot: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding pistol,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding pistol,trigger,delayShots}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding pistol,trigger,delayShots}" ContentStringFormat="Continuous shots: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="30" IsEnabled="{local:SettingBinding pistol,trigger,enabled}" IsChecked="{local:SettingBinding pistol,trigger,camp}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when still:" FontSize="13" />
+                                </CheckBox>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="4" IsEnabled="{local:SettingBinding pistol,trigger,enabled}" IsChecked="{local:SettingBinding pistol,trigger,zoom}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when zoomed:" FontSize="13" />
+                                </CheckBox>
+                            </Canvas>
+                            <Controls:ToggleSwitch Width="120" Header="RCS" IsChecked="{local:SettingBinding pistol,rcs,enabled}" HorizontalAlignment="Left" />
+                            <Canvas>
+                                <Controls:RangeSlider IsEnabled="{local:SettingBinding pistol,rcs,enabled}" LowerValue="{local:SettingBinding pistol,rcs,strengthMin}" UpperValue="{local:SettingBinding pistol,rcs,strengthMax}" Width="135" Canvas.Top="34" MinRangeWidth="0" SmallChange="1" LargeChange="10"/>
+                                <Label Canvas.Top="3" Canvas.Left="-6">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource RangeSliderMultiValueConvertor}" ConverterParameter="%" StringFormat="Strength: {0}">
+                                                    <local:SettingBinding Path="pistolConfig.rcsConfig.strengthMin"/>
+                                                    <local:SettingBinding Path="pistolConfig.rcsConfig.strengthMax"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </Canvas>
+                        </UniformGrid>
+                    </TabItem>
+                    <TabItem Header="Rifle">
+                        <UniformGrid Rows="5" Columns="4">
+                            <Canvas>
+                                <Controls:ToggleSwitch Width="120" Header="Trigger" IsChecked="{local:SettingBinding rifle,trigger,enabled}" HorizontalAlignment="Left" />
+                                <ComboBox Canvas.Left="60" Canvas.Top="5" Width="75" SelectedIndex="{local:SettingBinding rifle,trigger,type}" FontSize="11" MinHeight="18" IsEnabled="{local:SettingBinding rifle,trigger,enabled}">
+                                    <ComboBoxItem Content="In cross"/>
+                                    <ComboBoxItem Content="Hitbox"/>
+                                    <ComboBoxItem Content="Bone"/>
+                                </ComboBox>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding rifle,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding rifle,trigger,delayFirstShot}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding rifle,trigger,delayFirstShot}" ContentStringFormat="First shot: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding rifle,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding rifle,trigger,delayShots}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding rifle,trigger,delayShots}" ContentStringFormat="Continuous shots: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="30" IsEnabled="{local:SettingBinding rifle,trigger,enabled}" IsChecked="{local:SettingBinding rifle,trigger,camp}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when still:" FontSize="13" />
+                                </CheckBox>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="4" IsEnabled="{local:SettingBinding rifle,trigger,enabled}" IsChecked="{local:SettingBinding rifle,trigger,zoom}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when zoomed:" FontSize="13" />
+                                </CheckBox>
+                            </Canvas>
+                            <Controls:ToggleSwitch Width="120" Header="RCS" IsChecked="{local:SettingBinding rifle,rcs,enabled}" HorizontalAlignment="Left" />
+                            <Canvas>
+                                <Controls:RangeSlider IsEnabled="{local:SettingBinding rifle,rcs,enabled}" LowerValue="{local:SettingBinding rifle,rcs,strengthMin}" UpperValue="{local:SettingBinding rifle,rcs,strengthMax}" Width="135" Canvas.Top="34" MinRangeWidth="0" SmallChange="1" LargeChange="10"/>
+                                <Label Canvas.Top="3" Canvas.Left="-6">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource RangeSliderMultiValueConvertor}" ConverterParameter="%" StringFormat="Strength: {0}">
+                                                    <local:SettingBinding Path="rifleConfig.rcsConfig.strengthMin"/>
+                                                    <local:SettingBinding Path="rifleConfig.rcsConfig.strengthMax"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </Canvas>
+                        </UniformGrid>
+                    </TabItem>
+                    <TabItem Header="Heavy">
+                        <UniformGrid Rows="5" Columns="4">
+                            <Canvas>
+                                <Controls:ToggleSwitch Width="120" Header="Trigger" IsChecked="{local:SettingBinding heavy,trigger,enabled}" HorizontalAlignment="Left" />
+                                <ComboBox Canvas.Left="60" Canvas.Top="5" Width="75" SelectedIndex="{local:SettingBinding heavy,trigger,type}" FontSize="11" MinHeight="18" IsEnabled="{local:SettingBinding heavy,trigger,enabled}">
+                                    <ComboBoxItem Content="In cross"/>
+                                    <ComboBoxItem Content="Hitbox"/>
+                                    <ComboBoxItem Content="Bone"/>
+                                </ComboBox>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding heavy,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding heavy,trigger,delayFirstShot}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding heavy,trigger,delayFirstShot}" ContentStringFormat="First shot: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding heavy,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding heavy,trigger,delayShots}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding heavy,trigger,delayShots}" ContentStringFormat="Continuous shots: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="30" IsEnabled="{local:SettingBinding heavy,trigger,enabled}" IsChecked="{local:SettingBinding heavy,trigger,camp}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when still:" FontSize="13" />
+                                </CheckBox>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="4" IsEnabled="{local:SettingBinding heavy,trigger,enabled}" IsChecked="{local:SettingBinding heavy,trigger,zoom}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when zoomed:" FontSize="13" />
+                                </CheckBox>
+                            </Canvas>
+                            <Controls:ToggleSwitch Width="120" Header="RCS" IsChecked="{local:SettingBinding heavy,rcs,enabled}" HorizontalAlignment="Left" />
+                            <Canvas>
+                                <Controls:RangeSlider IsEnabled="{local:SettingBinding heavy,rcs,enabled}" LowerValue="{local:SettingBinding heavy,rcs,strengthMin}" UpperValue="{local:SettingBinding heavy,rcs,strengthMax}" Width="135" Canvas.Top="34" MinRangeWidth="0" SmallChange="1" LargeChange="10"/>
+                                <Label Canvas.Top="3" Canvas.Left="-6">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource RangeSliderMultiValueConvertor}" ConverterParameter="%" StringFormat="Strength: {0}">
+                                                    <local:SettingBinding Path="heavyConfig.rcsConfig.strengthMin"/>
+                                                    <local:SettingBinding Path="heavyConfig.rcsConfig.strengthMax"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </Canvas>
+                        </UniformGrid>
+                    </TabItem>
+                    <TabItem Header="Shotgun">
+                        <UniformGrid Rows="5" Columns="4">
+                            <Canvas>
+                                <Controls:ToggleSwitch Width="120" Header="Trigger" IsChecked="{local:SettingBinding shotgun,trigger,enabled}" HorizontalAlignment="Left" />
+                                <ComboBox Canvas.Left="60" Canvas.Top="5" Width="75" SelectedIndex="{local:SettingBinding shotgun,trigger,type}" FontSize="11" MinHeight="18" IsEnabled="{local:SettingBinding shotgun,trigger,enabled}">
+                                    <ComboBoxItem Content="In cross"/>
+                                    <ComboBoxItem Content="Hitbox"/>
+                                    <ComboBoxItem Content="Bone"/>
+                                </ComboBox>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding shotgun,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding shotgun,trigger,delayFirstShot}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding shotgun,trigger,delayFirstShot}" ContentStringFormat="First shot: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding shotgun,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding shotgun,trigger,delayShots}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding shotgun,trigger,delayShots}" ContentStringFormat="Continuous shots: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="30" IsEnabled="{local:SettingBinding shotgun,trigger,enabled}" IsChecked="{local:SettingBinding shotgun,trigger,camp}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when still:" FontSize="13" />
+                                </CheckBox>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="4" IsEnabled="{local:SettingBinding shotgun,trigger,enabled}" IsChecked="{local:SettingBinding shotgun,trigger,zoom}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when zoomed:" FontSize="13" />
+                                </CheckBox>
+                            </Canvas>
+                            <Controls:ToggleSwitch Width="120" Header="RCS" IsChecked="{local:SettingBinding shotgun,rcs,enabled}" HorizontalAlignment="Left" />
+                            <Canvas>
+                                <Controls:RangeSlider IsEnabled="{local:SettingBinding shotgun,rcs,enabled}" LowerValue="{local:SettingBinding shotgun,rcs,strengthMin}" UpperValue="{local:SettingBinding shotgun,rcs,strengthMax}" Width="135" Canvas.Top="34" MinRangeWidth="0" SmallChange="1" LargeChange="10"/>
+                                <Label Canvas.Top="3" Canvas.Left="-6">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource RangeSliderMultiValueConvertor}" ConverterParameter="%" StringFormat="Strength: {0}">
+                                                    <local:SettingBinding Path="shotgunConfig.rcsConfig.strengthMin"/>
+                                                    <local:SettingBinding Path="shotgunConfig.rcsConfig.strengthMax"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </Canvas>
+                        </UniformGrid>
+                    </TabItem>
+                    <TabItem Header="SMG">
+                        <UniformGrid Rows="5" Columns="4">
+                            <Canvas>
+                                <Controls:ToggleSwitch Width="120" Header="Trigger" IsChecked="{local:SettingBinding smg,trigger,enabled}" HorizontalAlignment="Left" />
+                                <ComboBox Canvas.Left="60" Canvas.Top="5" Width="75" SelectedIndex="{local:SettingBinding smg,trigger,type}" FontSize="11" MinHeight="18" IsEnabled="{local:SettingBinding smg,trigger,enabled}">
+                                    <ComboBoxItem Content="In cross"/>
+                                    <ComboBoxItem Content="Hitbox"/>
+                                    <ComboBoxItem Content="Bone"/>
+                                </ComboBox>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding smg,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding smg,trigger,delayFirstShot}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding smg,trigger,delayFirstShot}" ContentStringFormat="First shot: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding smg,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding smg,trigger,delayShots}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding smg,trigger,delayShots}" ContentStringFormat="Continuous shots: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="30" IsEnabled="{local:SettingBinding smg,trigger,enabled}" IsChecked="{local:SettingBinding smg,trigger,camp}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when still:" FontSize="13" />
+                                </CheckBox>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="4" IsEnabled="{local:SettingBinding smg,trigger,enabled}" IsChecked="{local:SettingBinding smg,trigger,zoom}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when zoomed:" FontSize="13" />
+                                </CheckBox>
+                            </Canvas>
+                            <Controls:ToggleSwitch Width="120" Header="RCS" IsChecked="{local:SettingBinding smg,rcs,enabled}" HorizontalAlignment="Left" />
+                            <Canvas>
+                                <Controls:RangeSlider IsEnabled="{local:SettingBinding smg,rcs,enabled}" LowerValue="{local:SettingBinding smg,rcs,strengthMin}" UpperValue="{local:SettingBinding smg,rcs,strengthMax}" Width="135" Canvas.Top="34" MinRangeWidth="0" SmallChange="1" LargeChange="10"/>
+                                <Label Canvas.Top="3" Canvas.Left="-6">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource RangeSliderMultiValueConvertor}" ConverterParameter="%" StringFormat="Strength: {0}">
+                                                    <local:SettingBinding Path="smgConfig.rcsConfig.strengthMin"/>
+                                                    <local:SettingBinding Path="smgConfig.rcsConfig.strengthMax"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </Canvas>
+                        </UniformGrid>
+                    </TabItem>
+                    <TabItem Header="Sniper">
+                        <UniformGrid Rows="5" Columns="4">
+                            <Canvas>
+                                <Controls:ToggleSwitch Width="120" Header="Trigger" IsChecked="{local:SettingBinding sniper,trigger,enabled}" HorizontalAlignment="Left" />
+                                <ComboBox Canvas.Left="60" Canvas.Top="5" Width="75" SelectedIndex="{local:SettingBinding sniper,trigger,type}" FontSize="11" MinHeight="18" IsEnabled="{local:SettingBinding sniper,trigger,enabled}">
+                                    <ComboBoxItem Content="In cross"/>
+                                    <ComboBoxItem Content="Hitbox"/>
+                                    <ComboBoxItem Content="Bone"/>
+                                </ComboBox>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding sniper,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding sniper,trigger,delayFirstShot}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding sniper,trigger,delayFirstShot}" ContentStringFormat="First shot: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding sniper,trigger,enabled}"  Maximum="160" Value="{local:SettingBinding sniper,trigger,delayShots}" Width="135" Canvas.Top="34" />
+                                <Label Content="{local:SettingBinding sniper,trigger,delayShots}" ContentStringFormat="Continuous shots: {0}" Canvas.Top="3" Canvas.Left="-6"/>
+                            </Canvas>
+                            <Canvas>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="30" IsEnabled="{local:SettingBinding sniper,trigger,enabled}" IsChecked="{local:SettingBinding sniper,trigger,camp}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when still:" FontSize="13" />
+                                </CheckBox>
+                                <CheckBox FlowDirection="RightToLeft" Canvas.Top="4" IsEnabled="{local:SettingBinding sniper,trigger,enabled}" IsChecked="{local:SettingBinding sniper,trigger,zoom}">
+                                    <TextBlock FlowDirection="LeftToRight" Text="Only when zoomed:" FontSize="13" />
+                                </CheckBox>
+                            </Canvas>
+                            <Controls:ToggleSwitch Width="120" Header="RCS" IsChecked="{local:SettingBinding sniper,rcs,enabled}" HorizontalAlignment="Left" />
+                            <Canvas>
+                                <Controls:RangeSlider IsEnabled="{local:SettingBinding sniper,rcs,enabled}" LowerValue="{local:SettingBinding sniper,rcs,strengthMin}" UpperValue="{local:SettingBinding sniper,rcs,strengthMax}" Width="135" Canvas.Top="34" MinRangeWidth="0" SmallChange="1" LargeChange="10"/>
+                                <Label Canvas.Top="3" Canvas.Left="-6">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource RangeSliderMultiValueConvertor}" ConverterParameter="%" StringFormat="Strength: {0}">
+                                                    <local:SettingBinding Path="sniperConfig.rcsConfig.strengthMin"/>
+                                                    <local:SettingBinding Path="sniperConfig.rcsConfig.strengthMax"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </Canvas>
+                        </UniformGrid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Misc">
+                <UniformGrid Rows="5" Columns="4">
+                    <Controls:ToggleSwitch Width="120" Header="BHop" IsChecked="{local:SettingBinding bhop}" HorizontalAlignment="Left" />
+                    <Controls:ToggleSwitch Width="120" Header="No flash" IsChecked="{local:SettingBinding noFlash}" HorizontalAlignment="Left" />
+                    <Canvas>
+                        <Slider Style="{DynamicResource FlatSlider}" IsEnabled="{local:SettingBinding noFlash}" Maximum="160" Value="{local:SettingBinding noFlashPercentage}" Width="168" Canvas.Top="34" />
+                        <Label Content="{local:SettingBinding noFlashPercentage}" ContentStringFormat="{}{0}%" Canvas.Top="3"/>
+                    </Canvas>
+                </UniformGrid>
+            </TabItem>
+            <TabItem Header="Settings">
+                <UniformGrid Rows="5" Columns="4">
+                    <Controls:ToggleSwitch Width="120" Header="Dark mode" IsChecked="{local:SettingBinding darkMode}" IsCheckedChanged="ToggleSwitch_OnIsCheckedChanged" HorizontalAlignment="Left" />
+                    <Controls:ToggleSwitch Width="120" Header="Include chickens" IsChecked="{local:SettingBinding chickens}" HorizontalAlignment="Left" />
+                </UniformGrid>
+            </TabItem>
+        </TabControl>
+    </Viewbox>
+</Controls:MetroWindow>
